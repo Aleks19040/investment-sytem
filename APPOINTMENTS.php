@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root"; // Change if needed
-$password = "alex"; // Change if needed
+$password = ""; // Change if needed
 $dbname = "Investors"; // Change if needed
 
 // Create connection

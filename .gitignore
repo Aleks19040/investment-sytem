@@ -1,0 +1,6 @@
+# Ignore database files
+*.db
+*.sql
+*.sqlite
+*.sqlite3
+

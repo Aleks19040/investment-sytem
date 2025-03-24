@@ -60,7 +60,59 @@
         <div class="hero-content">
             <h2>Unlock Promising Investment Opportunities</h2>
             <p>Discover startups in the oils and perfumes industry that are ready to grow with your support.</p>
-            <a href="#investors" class="cta-button">Become an Investor</a>
+            <form id="investorForm" method="post" action="">
+                <input type="hidden" name="action" value="become_investor">
+                <button type="submit" class="cta-button">Become an Investor</button>
+            </form>
+            <div id="investorMessage" style="display:none; color: green; margin-top: 20px;">You've successfully become an investor!</div>
+
+            <script>
+                document.getElementById('investorForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    var formData = new FormData(this);
+
+                    fetch('', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('investorMessage').style.display = 'block';
+                        setTimeout(function() {
+                            window.location.href = 'dashboard.php';
+                        }, 2000); // Redirect after 2 seconds
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            </script>
+
+            <script>
+                document.getElementById('investorForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    var formData = new FormData(this);
+
+                    fetch('', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        window.location.href = 'dashboard.php';
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            </script>
+
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'become_investor') {
+                $sql = "INSERT INTO investors (status) VALUES ('active')";
+                if ($conn->query($sql) === TRUE) {
+                    echo "<script>window.location.href = 'dashboard.php';</script>";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            ?>
         </div>
     </section>
 
