@@ -1,3 +1,63 @@
+<?php
+include 'db_connect.php'; // Ensure this file exists and contains valid credentials
+?>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = ""; // Replace 'your_password' with the actual password
+$dbname = "Investors";
+
+// Create connection
+$conn = new mysqli($localhost, $root, "", $Investors);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['company-name']) && isset($_POST['company-description']) && isset($_POST['investment-required']) && isset($_POST['company-location'])) {
+        $companyName = $_POST['company-name'];
+        $companyDescription = $_POST['company-description'];
+        $investmentRequired = $_POST['investment-required'];
+        $companyLocation = $_POST['company-location'];
+
+        $sql = "INSERT INTO company_profile (company_name, company_description, investment_required, company_location) VALUES ('$companyName', '$companyDescription', '$investmentRequired', '$companyLocation')";
+
+        if ($conn->query($sql) === TRUE) {
+            header("Location: appointment.php");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    if (isset($_POST['opportunity-name']) && isset($_POST['opportunity-description']) && isset($_POST['required-investment']) && isset($_POST['opportunity-duration'])) {
+        $opportunityName = $_POST['opportunity-name'];
+        $opportunityDescription = $_POST['opportunity-description'];
+        $requiredInvestment = $_POST['required-investment'];
+        $opportunityDuration = $_POST['opportunity-duration'];
+
+        $sql = "INSERT INTO investment_opportunities (opportunity_name, opportunity_description, required_investment, opportunity_duration) VALUES ('$opportunityName', '$opportunityDescription', '$requiredInvestment', '$opportunityDuration')";
+
+        if ($conn->query($sql) === TRUE) {
+            header("Location: appointment.php");
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+$conn->close();
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
